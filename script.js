@@ -43,11 +43,11 @@ function Race100M(score, LongJump) {
             }
         }
         console.log(score, maxScore);
-        LongJump(score, LongJump);
+        LongJump(score, HighJump);
     }, 3000);
 }
 
-function LongJump(score, LongJump) {
+function LongJump(score, HighJump) {
     let randomColour = sportsDayColours[Math.floor(Math.random() * (3 - 0 + 1) + 0)];
     for (let key of Object.keys(score)) {
         if(key == randomColour) {
@@ -61,14 +61,34 @@ function LongJump(score, LongJump) {
         }
     }
     console.log(score, maxScore);
+    HighJump(score, HighJump);
 }
 
-function HighJump() {
-
+function HighJump(score, AwardCeremony) {
+    let winner = prompt("What colour secured the highest jump?");
+    if (winner == null || winner == "") {
+        console.log("Event was cancelled");
+    } else {
+        for (let key of Object.keys(score)) {
+            if(key == winner) {
+                score[key] += 100;
+            }
+        }
+    }
+    let maxScore = 0;
+    for (let key of Object.keys(score)) {
+        if(score[key] > maxScore) {
+            maxScore = score[key];
+        }
+    }
+    console.log(score, maxScore);
+    AwardCeremony(score);
 }
 
-function AwardCeremony() {
-
+function AwardCeremony(score) {
+    for (let key of Object.keys(score)) {
+        console.log(key + score[key]);
+    }
 }
 
 OpeningCeremony(Race100M);
